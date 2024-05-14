@@ -6,11 +6,8 @@
       <class name="AppTestCases.TestCases">
         <methods>
           <include name="setup"/>
-          <include name="SigninProcess"/>
           <include name="searchFlight"/>
           <include name="selectPassenfersRandomly"/>
-          <include name="ChooseCountry"/>
-          <include name="selectDepartureAndReturnDate"/>
         </methods>
       </class> <!-- AppTestCases.TestCases -->
     </classes>

@@ -27,6 +27,8 @@ public class Parameters {
 	
 	String[] firstCity = { "Dubai", "Jeddah", "Riyadh" };
 	String[] secondCity = {"Amman", "Kuwait","Qatar"};
+	
+	String globalFlightDate;
 
 	public void TakeScreenshot() throws IOException {
 		

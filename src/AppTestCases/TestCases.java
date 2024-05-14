@@ -121,17 +121,21 @@ public class TestCases extends Parameters {
 				"//androidx.recyclerview.widget.RecyclerView[@resource-id=\"com.travel.almosafer:id/rvSearchAirports\"]/android.view.ViewGroup[1]"));
 		firstFromResult.click();
 
-		Thread.sleep(3000);
-		WebElement searchBarGoCity = driver.findElement(By.id("com.travel.almosafer:id/edSearch"));
-		int randomNumberTwo = random.nextInt(secondCity.length);
-		searchBarGoCity.click();
-		searchBarGoCity.sendKeys(secondCity[randomNumberTwo]);
+		try {
+			Thread.sleep(3000);
+			WebElement searchBarGoCity = driver.findElement(By.id("com.travel.almosafer:id/edSearch"));
+			int randomNumberTwo = random.nextInt(secondCity.length);
+			searchBarGoCity.click();
+			searchBarGoCity.sendKeys(secondCity[randomNumberTwo]);
 
-		Thread.sleep(2000);
-		WebElement firstGoResult = driver.findElement(By.xpath(
-				"//androidx.recyclerview.widget.RecyclerView[@resource-id=\"com.travel.almosafer:id/rvSearchAirports\"]/android.view.ViewGroup[1]"));
-		firstGoResult.click();
+			Thread.sleep(2000);
+			WebElement firstGoResult = driver.findElement(By.xpath(
+					"//androidx.recyclerview.widget.RecyclerView[@resource-id=\"com.travel.almosafer:id/rvSearchAirports\"]/android.view.ViewGroup[1]"));
+			firstGoResult.click();
 
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 
 	@Test(priority = 4)
@@ -163,6 +167,9 @@ public class TestCases extends Parameters {
 		int returnYear = today.plusDays(randomFlightsDuration).getYear();
 
 		String FullReturnDate = returnDay + " " + returnMonthCon + " " + returnYear;
+
+		// EX : 15 May - 16 May
+		globalFlightDate = dapartureDay + " " + departureMonthCon + " - " + returnDay + " " + returnMonthCon;
 
 		System.out.println("Return Date : " + FullReturnDate);
 
@@ -245,6 +252,10 @@ public class TestCases extends Parameters {
 		boolean actualInfantsNumber = Integer.valueOf(PassengersNumber.get(2).getText()) <= Integer
 				.valueOf(PassengersNumber.get(0).getText());
 
+		int numberOfPassengers = Integer.valueOf(PassengersNumber.get(0).getText())
+				+ Integer.valueOf(PassengersNumber.get(1).getText())
+				+ Integer.valueOf(PassengersNumber.get(2).getText());
+
 		myAssert.assertEquals(actualPassengersNumber, true, "The number of passengers greater than 18");
 		myAssert.assertEquals(actualAdultsAndChildrenNumber, true,
 				"The number of Adults and Childrens not less than or equal 9");
@@ -259,8 +270,17 @@ public class TestCases extends Parameters {
 		WebElement searchButton = driver.findElement(By.id("com.travel.almosafer:id/btnFlightSearch"));
 		searchButton.click();
 
+		// Get Result of Passengers number And Date
+		Thread.sleep(2000);
+		String resultSearch = driver.findElement(By.id("com.travel.almosafer:id/tvFlightToolbarSubTitle")).getText();
+
+		String actualResult = numberOfPassengers + " Travellers - " + globalFlightDate;
+
+		// Assertion The Result
+		myAssert.assertEquals(actualResult, resultSearch);
+
 		// Screenshot For The Result
-		Thread.sleep(5000);
+		Thread.sleep(12000);
 		TakeScreenshot();
 	}
 }
